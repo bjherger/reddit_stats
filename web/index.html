@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="css/bootswatch/yeti/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+
+    <link rel="icon" type="image/x-icon" href="img/favicon.png"/>
+
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+        .tg td{padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+        .tg .tg-s6z2{text-align:center}
+        .tg .tg-hgcj{font-weight:bold;text-align:center}
+    </style>
+    <style>
+         #over18-chart g.row text {fill: grey;}
+        /*.dc-chart g.row text {stroke-width: .1;}*/
+    </style>
+
+    <style>
+        ul
+        {
+            list-style-type: none;
+        }
+
+        #scatter .axis,
+        .frame {
+            shape-rendering: crispEdges;
+        }
+
+        #scatter .axis line {
+            stroke: #ddd;
+        }
+
+        #scatter .axis path {
+            display: none;
+        }
+
+        #scatter .frame {
+            fill: none;
+            stroke: #aaa;
+        }
+
+
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="jumbotron">
+                <h1>
+                    /r/AskGayBros
+
+                </h1>
+                <p class="text-muted">
+                    This is an exploratory look at <a href="http://www.reddit.com/r/AskGayBros">/r/AskGayBros</a>, an
+                    online community for gay men to seek crowd knowledge. I thought it would be interesting to
+                    explore the most popular topics, and build a 10,000 mile overview of the community. Though this
+                    subreddit is almost entirely safe for work, it represents honest and candid conversations between
+                    adults; please keep this in mind.
+                </p>
+                <p class="text-info"> <i>  All charts are interactive. Please touch.</i> </p>
+                <br>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="well">
+        <!--Bubble chart-->
+            <div class="col-md-12 column">
+                <h1 id="Classifying Submissions">Classifying Submissions</h1>
+                <div id="yearly-bubble-chart" class="dc-chart">
+                    <h4><strong>Topics</strong> (radius: number of posts, color: topic)</h4>
+                    <p class="text-muted">Click on bubbles to focus on one topic; Hover over for details. </p>
+                    <div class="clearfix visible-xs"></div>
+                </div>
+            </div>
+            <p class="text-muted">
+                I was particularly interested in the topics which are most common on <a
+                    href="http://www.reddit.com/r/AskGayBros">/r/AskGayBros</a>, so I used <a
+                    href="http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Latent Dirichlet Allocation
+                </a> (topic modelling) to find the 5 most popular topics.
+            </p>
+            <p class="text-muted">
+                I'll be the first to admit that topic modeling equal parts art and science, and that the results are
+                somewhat subjective. However, after lemmatization and normalizaiton, 5 pretty distinct groups
+                appeared. Here's a quick look at the words which are most distinctive of these groups:
+            </p>
+
+            <table class="tg">
+              <tr>
+                <th class="tg-hgcj">finding a guy</th>
+                <th class="tg-hgcj">young adult</th>
+                <th class="tg-hgcj">coming out</th>
+                <th class="tg-hgcj">aroused</th>
+                <th class="tg-hgcj">long term relationship</th>
+              </tr>
+              <tr>
+                <td class="tg-s6z2"><p class="text-muted">people, know, look, grindr, looking, want, meet, good,
+                    dating, date, bar, attractive, new, body, make, apps, say, profile</p></td>
+                <td class="tg-s6z2"><p class="text-muted">year, relationship, want, time, love, know, work, going, need, job,
+                    boyfriend,
+                    help, month, make, day, people, advice, school</p></td>
+                <td class="tg-s6z2"><p class="text-muted">know, people, straight, come, want, year, family, girl,
+                    men, tell, coming, parent, love, school, woman, say, make, question</p></td>
+                <td class="tg-s6z2"><p class="text-muted">sex, time, want, know, dick, anal, getting, doe, porn, condom, make, hard,
+                    question, sexual, experience, way, cum, help</p></td>
+                <td class="tg-s6z2"><p class="text-muted">time, know, want, told, day, say, night, tell, going, date, met, week, month,
+                    talk, feeling, relationship, started, talking</p></td>
+              </tr>
+            </table>
+
+            <small> &nbsp </small> <!-- So well performs correctly -->
+        </div>
+
+        <!-- Length / number of submissions-->
+        <div class="well">
+            <h1 id="Submission Length / Time">Submission Length / Time</h1>
+            <p class="text-muted">
+                I was also interested in how long posts were, and when they are posted. As expected, most posts are
+                pretty short,
+            </p>
+            <!--Post length Histogram-->
+            <div class="col-md-4 column">
+                <div id="fluctuation-chart">
+                    <h4><strong>Length of posts</strong></h4>
+                    <p class="text-muted">Click to select range of posts lengths</p>
+                </div>
+            </div>
+
+            <!--Submissions over time-->
+            <div class="col-md-8 column">
+                <div id="monthly-move-chart">
+                    <h4><strong>Number of submissions over time</strong></h4>
+                    <p class="text-muted">Click to select date range</p>
+
+                 </div>
+            </div>
+            <small> &nbsp </small> <!-- So well performs correctly -->
+        </div>
+
+        <!-- Scatterplot-->
+        <div class="well">
+            <h1 id="Summary Overview">Summary Overview</h1>
+            <p class="text-muted">
+                I also wanted to briefly look at how length and popularity correlated on the individual post level.
+                The scatterplot matrix below provides a high level view of how the number of words, up votes and
+                number of comments interact.
+            </p>
+            <p class="text-muted">
+                For example, the top left plot shows number of comments on the x-axis, and number of words on the
+                y-axis. Similarly, you can think of each plot as the interaction between the row and column labels.
+                The diagonals represent the same variable on the x-axis and the y-axis, providing a cursory
+                distribution.
+            </p>
+            <div class="col-md-12 column">
+                <h4><strong>Scatterplot Matrix</strong></h4>
+                <div id="scatter">
+
+                </div>
+            </div>
+            <small> &nbsp </small> <!-- So well performs correctly -->
+        </div>
+
+    </div>
+</div>
+
+
+<div class="content container-fluid" >
+<!-- Row: Spacer for footer-->
+    <!-- ************************************************************************ -->
+    <div class="row-fluid" > <!-- Row -->
+        <div class="col-sm-12"> <!-- light box column size -->
+            <section class="widget">  <!-- light box section -->
+                <div class="row"> <!--begin row for charts -->
+                    <div class="col-sm-3 ">
+                        <!-- empty spacer -->
+                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    </div>
+                </div>
+            </section> <!-- end light widget -->
+        </div> <!-- end light box -->
+    </div> <!-- end row -->
+</div> <!-- end container -->
+
+<footer>
+        <div class="row"> <!--begin row for charts -->
+
+            <div class="navbar navbar-inverse navbar-fixed-bottom">
+                <br>
+                <div class="col-sm-2 ">
+                    <!--<header>-->
+                        <!--<h3> Sections </h3>-->
+                    <!--</header>-->
+                    <strong>Sections</strong>
+                    <div class = "well">
+                        <h5><a href="#Classifying Submissions">Classifying Submissions</a></h5>
+                        <h5><a href="#Submission Length / Time">Submission Length / Time</a></h5>
+                        <h5><a href="#Summary Overview">Summary Overview</a></h5>
+
+                        <small> &nbsp </small> <!-- So well performs correctly -->
+                    </div>
+
+                </div>
+
+                <div class="col-sm-10 ">
+                    <!--<header>-->
+                        <!--<h3>&lt;!&ndash; header format &ndash;&gt;-->
+                            <!--Interactive demographic information |&lt;!&ndash; big info &ndash;&gt;-->
+                            <strong><a class="reset" href="javascript:dc.filterAll();dc.redrawAll();"> Reset
+                    All Charts</a></strong>
+                        <!--</h3>&lt;!&ndash; header format &ndash;&gt;-->
+                    <!--</header>-->
+
+                        <div class="col-sm-3 ">
+                            <div id="day-of-week-chart">
+                                <strong>Day of Week</strong>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <small> &nbsp </small> <!-- So well performs correctly -->
+
+                        </div>
+
+                        <div class="col-sm-3 ">
+                            <div id="topic-name-chart">
+                                <strong>Topic Name</strong>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <small> &nbsp </small> <!-- So well performs correctly -->
+                        </div>
+
+                        <div class="col-sm-3 ">
+                            <div id="over18-chart">
+                                <strong>Adults Only</strong>
+                                <div class="clearfix"></div>
+                            </div>
+                            <small> &nbsp </small> <!-- So well performs correctly -->
+                        </div>
+
+                        <small> &nbsp </small> <!-- So well performs correctly -->
+
+                </div>
+            <header>
+
+            </header>
+
+
+        </div> <!--end row for charts -->
+    </div>
+
+</footer>
+
+
+<!--Library Scripts-->
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/crossfilter.js"></script>
+<script type="text/javascript" src="js/dc.js"></script>
+<script type="text/javascript" src="js/colorbrewer.js"></script>
+
+<script src="./js/jquery-2.1.1.min.js"> </script>
+<script src="./js/bootstrap.min.js"> </script>
+
+<!--Page specific-->
+<script type="text/javascript" src="reddit.js"></script>
+
+
+</body>
+</html>
